@@ -5,7 +5,7 @@ const CATEGORY_LABEL: Record<ReviewCategory, string> = {
   cameras: "Cameras",
   sensors: "Sensors",
   accessories: "Accessories",
-  plan: "Home monitoring plan",
+  plan: "plan",
 };
 
 interface ReviewGroupProps {
@@ -15,11 +15,11 @@ interface ReviewGroupProps {
 
 export function ReviewGroup({ category, items }: ReviewGroupProps) {
   return (
-    <div className="border-t border-hairline/70 py-3">
-      <h4 className="mb-1 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted">
+    <div className="border-t border-[#CED6DE] pt-[15px] pb-[4px] flex flex-col gap-[8px]">
+      <h4 className="text-[12px] font-normal uppercase tracking-[0.03em] text-[#A8B2BD] leading-[16px]">
         {CATEGORY_LABEL[category]}
       </h4>
-      <div className="divide-y divide-hairline/50">
+      <div className="flex flex-col gap-[12px]">
         {items.map((item) => (
           <ReviewLine key={item.key} item={item} />
         ))}

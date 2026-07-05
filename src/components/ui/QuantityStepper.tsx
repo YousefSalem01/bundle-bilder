@@ -36,8 +36,12 @@ export function QuantityStepper({
         : "text-ink hover:bg-[#e0e5e9] cursor-pointer",
     ].join(" ");
 
+  const sizeClasses = size === "md"
+    ? "gap-[10px] py-[4px] px-0 w-[80px] h-[35px]"
+    : "gap-[10px] py-[4px] px-0 w-[72px] h-[28px]";
+
   return (
-    <div className="inline-flex items-center justify-center gap-[10px] py-[4px] px-0 w-[80px] h-[35px]" role="group" aria-label={label}>
+    <div className={`inline-flex items-center justify-center ${sizeClasses}`} role="group" aria-label={label}>
       <button
         type="button"
         aria-label="Decrease quantity"
