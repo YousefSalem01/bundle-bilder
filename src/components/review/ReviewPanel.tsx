@@ -8,27 +8,35 @@ export function ReviewPanel() {
   const groups = useReviewGroups();
 
   return (
-    <aside className="rounded-[10px] bg-[#EDF4FF] pt-[20px] pb-[31px] px-[20px] flex flex-col gap-[10px] w-full lg:w-[390px] shrink-0">
-      <p className="text-[12px] font-normal uppercase tracking-[1.6px] text-[#484848] leading-[100%]">Review</p>
-      <h2 className="font-display text-[22px] font-semibold text-[#1F1F1F] leading-[100%] tracking-[0.6px]">Your security system</h2>
-      <p className="text-[14px] leading-[130%] text-[#1F1F1F]/75 tracking-[0.6px]">
-        Review your personalized protection system designed to keep what matters most safe.
-      </p>
-
-      <div className="flex flex-col gap-[10px]">
-        {groups.length === 0 ? (
-          <p className="border-t border-hairline/70 py-6 text-center text-sm text-muted">
-            Your system is empty — add products on the left to get started.
+    <aside className="rounded-[10px] bg-[#EDF4FF] pt-[20px] pb-[31px] px-[20px] flex flex-col gap-[10px] w-full lg:w-[390px] tall-desktop:w-full tall-desktop:grid tall-desktop:grid-cols-[1fr_390px] tall-desktop:gap-[60px] tall-desktop:items-start shrink-0">
+      <div className="flex flex-col w-full tall-desktop:col-start-1">
+        <div className="flex flex-col gap-[10px]">
+          <p className="text-[12px] font-normal uppercase tracking-[1.6px] text-[#484848] leading-[100%]">Review</p>
+          <h2 className="font-display text-[22px] font-semibold text-[#1F1F1F] leading-[100%] tracking-[0.6px]">Your security system</h2>
+          <p className="text-[14px] leading-[130%] text-[#1F1F1F]/75 tracking-[0.6px]">
+            Review your personalized protection system designed to keep what matters most safe.
           </p>
-        ) : (
-          groups.map((group) => (
-            <ReviewGroup key={group.category} category={group.category} items={group.items} />
-          ))
-        )}
-        <ShippingRow />
+
+          <div className="flex flex-col gap-[10px]">
+            {groups.length === 0 ? (
+              <p className="border-t border-hairline/70 py-6 text-center text-sm text-muted">
+                Your system is empty — add products on the left to get started.
+              </p>
+            ) : (
+              groups.map((group) => (
+                <ReviewGroup key={group.category} category={group.category} items={group.items} />
+              ))
+            )}
+            <ShippingRow />
+          </div>
+        </div>
       </div>
 
-      <SummaryFooter />
+      <div className="hidden lg:block tall-desktop:hidden h-[1px] bg-[#1F1F1F]/10 w-full mt-[10px]" />
+      
+      <div className="tall-desktop:col-start-2 tall-desktop:row-start-1">
+        <SummaryFooter />
+      </div>
     </aside>
   );
 }

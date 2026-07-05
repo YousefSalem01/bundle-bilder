@@ -20,15 +20,23 @@ export function SummaryFooter() {
 
   return (
     <div className="flex flex-col gap-[10px] mt-[4px]">
-      <div className="flex items-center justify-between gap-[8px] h-[78px]">
-        <GuaranteeBadge className="h-[78px] w-[78px] shrink-0" />
-        <div className="flex flex-col items-end justify-center gap-[8px] h-[78px]">
+      <div className="hidden tall-desktop:flex items-center gap-[16px] mb-[16px]">
+        <GuaranteeBadge className="h-[80px] w-[80px] shrink-0" />
+        <div className="flex flex-col gap-[4px]">
+          <span className="font-display text-[16px] font-semibold text-[#1F1F1F] leading-[100%]">30-day hassle-free returns</span>
+          <span className="text-[14px] text-[#1F1F1F]/75 leading-[130%]">If you're not totally in love with the product, we will refund you 100%.</span>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between gap-[8px] h-[78px] tall-desktop:h-auto tall-desktop:pt-2">
+        <GuaranteeBadge className="h-[78px] w-[78px] shrink-0 tall-desktop:hidden" />
+        <div className="flex flex-col items-end justify-center gap-[8px] h-[78px] tall-desktop:flex-row tall-desktop:items-center tall-desktop:justify-between tall-desktop:w-full tall-desktop:h-auto">
           <div className="flex items-center justify-center bg-[#4E2FD2] rounded-[3px] px-[8px] py-[5px] h-[18px]">
             <span className="text-[12px] font-medium text-white leading-[15px] tracking-[-0.05em] translate-y-[1px]">
               as low as {formatPrice(financingMonthly)}/mo
             </span>
           </div>
-          <div className="flex items-baseline gap-[8px] h-[32px]">
+          <div className="flex items-baseline gap-[8px] h-[32px] tall-desktop:h-auto">
             {savings > 0 && (
               <span className="text-[18px] text-[#6F7882] font-medium leading-[20px] tracking-[0.0025em] line-through">
                 {formatPrice(compareTotal)}

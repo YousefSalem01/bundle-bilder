@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap");
 @import "tailwindcss";
 
+@custom-variant tall-desktop (@media (min-width: 1024px) and (min-height: 1200px));
 @theme {
   /* Brand */
   --color-primary: #4E2FD2;

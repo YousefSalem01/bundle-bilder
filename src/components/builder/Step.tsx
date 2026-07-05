@@ -54,13 +54,13 @@ export function Step({ step }: StepProps) {
 
       {open && (
         <div className="px-[15px] pt-[10px] pb-2">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 tall-desktop:grid-cols-5">
             {products.map((product, index) => {
               const isLastOdd = index === products.length - 1 && products.length % 2 !== 0;
               return (
                 <div 
                   key={product.id} 
-                  className={isLastOdd ? "sm:col-span-2 sm:justify-self-center sm:w-[calc(50%-8px)]" : ""}
+                  className={isLastOdd ? "sm:col-span-2 sm:justify-self-center sm:w-[calc(50%-8px)] tall-desktop:col-span-1 tall-desktop:justify-self-start tall-desktop:w-auto" : ""}
                 >
                   <ProductCard product={product} />
                 </div>
