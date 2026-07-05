@@ -1,1 +1,41 @@
+/* Fonts: Poppins for display headings, Inter for body/UI. Closest free match to the Figma. */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap");
 @import "tailwindcss";
+
+@theme {
+  /* Brand */
+  --color-primary: #4E2FD2;
+  --color-primary-strong: #3d22b3;
+  --color-primary-soft: #efeafe;
+
+  /* Surfaces */
+  --color-panel: #EDF4FF;
+  --color-ink: #0f1121;
+  --color-muted: #6b7280;
+  --color-hairline: #e6e8ef;
+
+  /* Pricing / status */
+  --color-strike: #9aa0ae;
+  --color-strike-red: #e5484d;
+  --color-savings: #10a150;
+
+  /* Typography */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Poppins", "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Radii */
+  --radius-card: 10px;
+  --radius-chip: 10px;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: #ffffff;
+}
