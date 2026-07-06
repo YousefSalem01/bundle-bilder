@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "motion/react";
 import type { Step as StepType } from "../../types/catalog";
 import { catalog, productById } from "../../lib/catalog";
 import { useBundleStore } from "../../store/bundleStore";
@@ -23,7 +24,7 @@ export function Step({ step }: StepProps) {
   return (
     <section
       className={cn(
-        "border-t border-[#E6EBF0]",
+        "border-t border-[#E6EBF0] transition-colors duration-200",
         open ? "rounded-[10px] border-transparent bg-panel py-[15px]" : "py-4",
       )}
     >
@@ -48,40 +49,53 @@ export function Step({ step }: StepProps) {
           </span>
           <span className="flex shrink-0 items-center gap-1.5 text-[14px] font-medium text-primary">
             {open && <span>{selectedCount} selected</span>}
-            <Chevron direction={open ? "up" : "down"} />
+            <span className={cn("flex transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]", open && "rotate-180")}>
+              <Chevron direction="down" />
+            </span>
           </span>
         </div>
       </button>
 
-      {open && (
-        <div className="px-[15px] pt-[10px] pb-2">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 tall-desktop:grid-cols-5">
-            {products.map((product, index) => {
-              const isLastOdd = index === products.length - 1 && products.length % 2 !== 0;
-              return (
-                <div 
-                  key={product.id} 
-                  className={isLastOdd ? "sm:col-span-2 sm:justify-self-center sm:w-[calc(50%-8px)] tall-desktop:col-span-1 tall-desktop:justify-self-start tall-desktop:w-auto" : ""}
-                >
-                  <ProductCard product={product} />
-                </div>
-              );
-            })}
-          </div>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            key="body"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+            className="overflow-hidden"
+          >
+            <div className="px-[15px] pt-[10px] pb-2">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 tall-desktop:grid-cols-5">
+                {products.map((product, index) => {
+                  const isLastOdd = index === products.length - 1 && products.length % 2 !== 0;
+                  return (
+                    <div
+                      key={product.id}
+                      className={isLastOdd ? "sm:col-span-2 sm:justify-self-center sm:w-[calc(50%-8px)] tall-desktop:col-span-1 tall-desktop:justify-self-start tall-desktop:w-auto" : ""}
+                    >
+                      <ProductCard product={product} />
+                    </div>
+                  );
+                })}
+              </div>
 
-          {nextStep && (
-            <div className="mt-5 flex justify-center">
-              <button
-                type="button"
-                onClick={() => goToNextStep(step.id)}
-                className="flex items-center justify-center w-[242px] h-[39px] gap-2.5 rounded-[7px] border border-primary bg-white px-6 py-[5px] text-sm font-semibold text-primary transition-colors hover:bg-panel cursor-pointer"
-              >
-                Next: {nextStep.title}
-              </button>
+              {nextStep && (
+                <div className="mt-5 flex justify-center">
+                  <button
+                    type="button"
+                    onClick={() => goToNextStep(step.id)}
+                    className="flex items-center justify-center w-[242px] h-[39px] gap-2.5 rounded-[7px] border border-primary bg-white px-6 py-[5px] text-sm font-semibold text-primary transition-colors hover:bg-panel cursor-pointer"
+                  >
+                    Next: {nextStep.title}
+                  </button>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
