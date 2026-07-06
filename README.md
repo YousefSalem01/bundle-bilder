@@ -94,6 +94,7 @@ hooks — never stored — so there's a single source of truth.
 
 ## Notes, decisions & tradeoffs
 
+- **Responsive & Multiple Desktop Layouts:** Added specific breakpoint handling (`tall-desktop`) to gracefully shift between the standard 1440x1077 side-by-side view and the extra-large 1440x1606 stacked view requested in the Figma designs, ensuring the UI always utilizes the maximum available width without breaking the grid constraints. 
 - **Pricing is computed** (`unit × qty`); it isn't hardcoded. Seed unit prices were calibrated
   so the initial bundle matches the design's headline figures exactly: **total $187.89**,
   **compare-at $238.81**, **you save $50.92** (verified). Display-only free shipping is
