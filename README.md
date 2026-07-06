@@ -63,6 +63,7 @@ src/
 - Bonus not done: serving the catalog from a backend API (local JSON is used instead).
 -----
 preview :-https://bundle-bilder.vercel.app/
+-----
 ![mobile-view](image.png)
 ![1440*1606](image-1.png)
 ![1440*1077](image-2.png)
