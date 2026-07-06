@@ -7,7 +7,7 @@ interface IconProps {
 
 const iconPaths: Record<IconKey, string> = {
   camera: "/icons/livestream.svg",
-  shield: "/icons/logo_hms_new 1.svg",
+  shield: "/icons/logo_hms_new_1.svg",
   plan: "/icons/cam_unlimited.svg",
   sensor: "/icons/choose_your_sensor.svg",
   grid: "/icons/add_extra_protecxtion.svg",
