@@ -96,7 +96,6 @@
       "priceUnit": "mo",
       "stepId": "plan",
       "reviewCategory": "plan",
-      "image": "/icons/Layer_1.svg",
       "variants": []
     },
     {
@@ -160,7 +159,6 @@
       "priceUnit": "once",
       "stepId": "extra",
       "reviewCategory": "accessories",
-      "image": "/products/image 18.png",
       "variants": []
     }
   ],

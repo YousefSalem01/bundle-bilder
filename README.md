@@ -28,6 +28,7 @@ Other scripts:
 npm run build    # type-check (tsc) + production build
 npm run preview  # preview the production build
 npm run lint     # eslint
+npm test         # run the vitest unit suite
 ```
 
 The app runs and looks correct from a clean clone even before you add product photos —
@@ -35,22 +36,15 @@ missing images fall back to a neutral placeholder tile.
 
 ## Product images
 
-Images are referenced from the JSON but not committed. Drop your Figma exports into
-`public/products/` using these filenames and they'll appear automatically:
+Product photos live in `public/products/` and the plan/brand marks in `public/icons/`; each
+product in `src/data/catalog.json` references its image by path (e.g.
+`/products/Wyze Cam v4_sub_image_white.png`). To swap or add artwork, drop the file into
+`public/` and point the product's `image` (or a variant's `image`) at it.
 
-```
-wyze-cam-v4-white.png        wyze-cam-v4-grey.png        wyze-cam-v4-black.png
-wyze-cam-pan-v3-white.png    wyze-cam-pan-v3-black.png
-wyze-cam-floodlight-v2-white.png   wyze-cam-floodlight-v2-black.png
-wyze-duo-cam-doorbell.png
-wyze-battery-cam-pro-white.png     wyze-battery-cam-pro-black.png
-wyze-sense-motion-sensor.png       wyze-sense-entry-sensor.png       wyze-sense-hub.png
-wyze-microsd-256gb.png             wyze-solar-panel.png
-plan-cam-plus.png                  plan-cam-unlimited.png
-```
-
-The satisfaction seal, chevrons, step icons, steppers and badges are all drawn as inline SVG /
-CSS, so no export is needed for those.
+Any product whose image path is missing renders a graceful neutral placeholder via
+[`ProductImage`](src/components/ui/ProductImage.tsx), so the app always builds and looks tidy
+from a clean clone. Chevrons, step icons, steppers and badges are inline SVG / CSS — no export
+needed.
 
 ## Architecture
 
@@ -60,18 +54,26 @@ src/
   types/catalog.ts       Domain types
   lib/
     catalog.ts           Typed catalog access + line-key helpers
+    lineItems.ts         Pure derivation of selected line items from a quantity map
     pricing.ts           Pure pricing math (line totals, grand totals, savings, financing)
     format.ts            Currency formatting
     storage.ts           localStorage save/load/clear
+    cn.ts                Tiny class-name joiner (no dependency)
   store/
     bundleStore.ts       Zustand store: quantities, active variant, open step + actions
     selectors.ts         Derived hooks: line items, review groups, totals, step counts
   components/
     ui/                  Reusable primitives (Icon, Chevron, QuantityStepper, PriceTag, …)
     builder/             Left column (Builder, Step, ProductCard, VariantSelector)
-    review/              Right column (ReviewPanel, ReviewGroup, ReviewLine, SummaryFooter, …)
+    review/              Right column (ReviewPanel, ReviewGroup, ReviewLine, SummaryRow, SummaryFooter, …)
   App.tsx                Two-column responsive shell
 ```
+
+**Styling.** All brand, status and text colours are defined once as design tokens in the
+`@theme` block of `src/index.css` and referenced via Tailwind classes (`bg-primary`,
+`text-savings`, `border-divider`, …), so the palette has a single source of truth. Conditional
+class strings use the small `cn()` helper. The custom `tall-desktop` breakpoint (wide **and**
+tall viewports) drives the alternate stacked Figma composition.
 
 **State model.** Selections are keyed as `productId` (no variants) or `productId:variantId`
 (with variants). This makes per-variant quantities fall out naturally, and both the card
@@ -110,8 +112,12 @@ hooks — never stored — so there's a single source of truth.
   design.
 - **Checkout** shows an inline confirmation (the prototype has nowhere to submit).
 
+## Testing
+
+Vitest unit tests cover the pure pricing math and the store actions (including an integration
+test asserting the seeded bundle matches the design's headline totals). Run `npm test`.
+
 ## Not done / possible next steps (bonus)
 
 - Serving the catalog from a small backend/API (currently a local JSON file — allowed by the brief).
-- Unit tests for `lib/pricing.ts` and the store reducer (the logic is already isolated and pure
-  to make this easy).
+- Component/interaction tests (e.g. React Testing Library) on top of the current logic-level tests.

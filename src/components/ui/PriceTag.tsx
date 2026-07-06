@@ -1,5 +1,5 @@
 import type { PriceUnit } from "../../types/catalog";
-import { formatPrice, formatPriceWithUnit } from "../../lib/format";
+import { formatPriceWithUnit } from "../../lib/format";
 
 interface PriceTagProps {
   price: number;
@@ -21,7 +21,7 @@ export function PriceTag({
   const showCompare = compareAt != null && compareAt > price;
   const isFree = price === 0;
 
-  const compareColor = variant === "card" ? "text-[#D8392B]" : "text-strike";
+  const compareColor = variant === "card" ? "text-strike-red" : "text-strike";
   const priceColor = variant === "card" ? "text-[#575757]" : "text-primary font-semibold";
   const priceSize = variant === "card" ? "text-[16px] tracking-[0.6px]" : (size === "md" ? "text-[15px]" : "text-sm");
   const compareSize = variant === "card" ? "text-[16px] tracking-[0.6px]" : "text-xs";
@@ -38,9 +38,4 @@ export function PriceTag({
       </span>
     </div>
   );
-}
-
-/** Inline single price (no compare), used where a plain figure is needed. */
-export function InlinePrice({ price, priceUnit = "once" }: { price: number; priceUnit?: PriceUnit }) {
-  return <span className="text-[15px] font-semibold text-ink">{formatPrice(price)}{priceUnit === "mo" ? "/mo" : ""}</span>;
 }

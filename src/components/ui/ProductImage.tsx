@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 interface ProductImageProps {
   src?: string;
@@ -9,15 +9,13 @@ interface ProductImageProps {
 /**
  * Renders a product image with a graceful neutral fallback, so the app builds
  * and looks tidy from a clean clone even before Figma assets are dropped in.
+ * We remember the specific src that failed, so a new src automatically retries
+ * without needing an effect to reset state.
  */
 export function ProductImage({ src, alt, className }: ProductImageProps) {
-  const [failed, setFailed] = useState(false);
+  const [failedSrc, setFailedSrc] = useState<string | undefined>(undefined);
 
-  useEffect(() => {
-    setFailed(false);
-  }, [src]);
-
-  const showFallback = !src || failed;
+  const showFallback = !src || failedSrc === src;
 
   if (showFallback) {
     return (
@@ -40,7 +38,7 @@ export function ProductImage({ src, alt, className }: ProductImageProps) {
       alt={alt}
       loading="lazy"
       className={`object-contain ${className ?? ""}`}
-      onError={() => setFailed(true)}
+      onError={() => setFailedSrc(src)}
     />
   );
 }

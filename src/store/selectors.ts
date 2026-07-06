@@ -1,55 +1,9 @@
 import { useMemo } from "react";
 import { useBundleStore } from "./bundleStore";
 import { catalog, hasVariants, lineKey, productById } from "../lib/catalog";
+import { buildLineItems } from "../lib/lineItems";
 import { computeTotals, type Totals } from "../lib/pricing";
-import type { LineItem, Product, ReviewCategory, Variant } from "../types/catalog";
-
-/** Resolve the active image for a product/variant, falling back to the product image. */
-function resolveImage(product: Product, variant?: Variant): string | undefined {
-  return variant?.image ?? product.image;
-}
-
-/** Build every selected line (qty > 0) from the current quantity map. */
-function buildLineItems(quantities: Record<string, number>): LineItem[] {
-  const items: LineItem[] = [];
-  for (const product of catalog.products) {
-    if (hasVariants(product)) {
-      for (const variant of product.variants) {
-        const key = lineKey(product.id, variant.id);
-        const quantity = quantities[key] ?? 0;
-        if (quantity <= 0) continue;
-        items.push({
-          key,
-          product,
-          variant,
-          name: product.name,
-          image: resolveImage(product, variant),
-          quantity,
-          unitPrice: product.price,
-          unitCompareAt: product.compareAt,
-          priceUnit: product.priceUnit,
-          required: product.required,
-        });
-      }
-    } else {
-      const key = product.id;
-      const quantity = quantities[key] ?? 0;
-      if (quantity <= 0) continue;
-      items.push({
-        key,
-        product,
-        name: product.name,
-        image: resolveImage(product),
-        quantity,
-        unitPrice: product.price,
-        unitCompareAt: product.compareAt,
-        priceUnit: product.priceUnit,
-        required: product.required,
-      });
-    }
-  }
-  return items;
-}
+import type { LineItem, Product, ReviewCategory } from "../types/catalog";
 
 /** All selected line items, recomputed when quantities change. */
 export function useLineItems(): LineItem[] {
@@ -112,9 +66,4 @@ export function useCardQuantity(product: Product): number {
     const key = hasVariants(product) ? lineKey(product.id, activeVariantId) : product.id;
     return s.quantities[key] ?? 0;
   });
-}
-
-/** Quantity for a specific line key (used by review-panel steppers). */
-export function useLineQuantity(key: string): number {
-  return useBundleStore((s) => s.quantities[key] ?? 0);
 }

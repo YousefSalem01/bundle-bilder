@@ -15,11 +15,11 @@ interface ReviewGroupProps {
 
 export function ReviewGroup({ category, items }: ReviewGroupProps) {
   return (
-    <div className="border-t border-[#CED6DE] pt-[15px] pb-[4px] flex flex-col gap-[8px]">
-      <h4 className="text-[12px] font-normal uppercase tracking-[0.03em] text-[#A8B2BD] leading-[16px]">
+    <div className="border-t border-divider pt-[15px] pb-1 flex flex-col gap-2">
+      <h4 className="text-[12px] font-normal uppercase tracking-[0.03em] text-faint leading-[16px]">
         {CATEGORY_LABEL[category]}
       </h4>
-      <div className="flex flex-col gap-[12px]">
+      <div className="flex flex-col gap-3">
         {items.map((item) => (
           <ReviewLine key={item.key} item={item} />
         ))}

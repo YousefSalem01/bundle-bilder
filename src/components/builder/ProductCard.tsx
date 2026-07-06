@@ -2,6 +2,7 @@ import type { Product } from "../../types/catalog";
 import { useBundleStore } from "../../store/bundleStore";
 import { useCardQuantity } from "../../store/selectors";
 import { hasVariants } from "../../lib/catalog";
+import { cn } from "../../lib/cn";
 import { ProductImage } from "../ui/ProductImage";
 import { QuantityStepper } from "../ui/QuantityStepper";
 import { PriceTag } from "../ui/PriceTag";
@@ -32,12 +33,12 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div
-      className={[
+      className={cn(
         "relative flex w-full h-full items-start tall-desktop:flex-col tall-desktop:justify-center tall-desktop:items-center gap-[19px] bg-white rounded-[10px] border-[2px] p-[11px] tall-desktop:py-[15px] transition-colors min-h-[159px] tall-desktop:min-h-[331px]",
         selected
-          ? "border-[#4E2FD2]/70 shadow-[0px_4px_14px_0px_rgba(78,47,210,0.15)]"
-          : "border-transparent shadow-none hover:border-[#4E2FD2]/30",
-      ].join(" ")}
+          ? "border-primary/70 shadow-[0px_4px_14px_0px_rgba(78,47,210,0.15)]"
+          : "border-transparent shadow-none hover:border-primary/30",
+      )}
     >
       <div className="relative shrink-0 self-center tall-desktop:self-stretch tall-desktop:flex tall-desktop:justify-center">
         {product.badge && (
@@ -54,16 +55,16 @@ export function ProductCard({ product }: ProductCardProps) {
 
       <div className="flex flex-1 min-w-0 flex-col gap-[10px] tall-desktop:w-full tall-desktop:flex-none">
         <div className="flex flex-col gap-[8px]">
-          <h3 className="font-display text-[16px] tall-desktop:text-[18px] font-semibold text-[#1F1F1F] tracking-[0.6px] leading-[100%]">{product.name}</h3>
+          <h3 className="font-display text-[16px] tall-desktop:text-[18px] font-semibold text-heading tracking-[0.6px] leading-[100%]">{product.name}</h3>
           {product.description && (
-            <div className="text-[10px] tall-desktop:text-[14px] leading-[130%] text-[#1F1F1F]/75 tracking-normal">
+            <div className="text-[10px] tall-desktop:text-[14px] leading-[130%] text-heading/75 tracking-normal">
               {product.description}
               {product.learnMoreUrl && (
                 <>
                   {" "}
                   <a
                     href={product.learnMoreUrl}
-                    className="inline text-[10px] tall-desktop:text-[14px] leading-[130%] tracking-normal font-medium text-[#4E2FD2] hover:underline"
+                    className="inline text-[10px] tall-desktop:text-[14px] leading-[130%] tracking-normal font-medium text-primary hover:underline"
                     onClick={(e) => e.preventDefault()}
                   >
                     Learn More

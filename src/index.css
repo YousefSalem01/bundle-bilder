@@ -2,23 +2,36 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap");
 @import "tailwindcss";
 
+/*
+ * Custom breakpoint for the tall/stacked Figma layout: viewports that are both
+ * wide AND tall (≥1024×1200) get the extra-large stacked composition instead of
+ * the standard side-by-side one.
+ */
 @custom-variant tall-desktop (@media (min-width: 1024px) and (min-height: 1200px));
+
 @theme {
   /* Brand */
-  --color-primary: #4E2FD2;
-  --color-primary-strong: #3d22b3;
-  --color-primary-soft: #efeafe;
+  --color-primary: #4E2FD2;        /* buttons, badges, prices, links */
+  --color-primary-strong: #3D22A6; /* button hover */
+  --color-primary-soft: #EDF4FF;   /* soft violet hover / panel tint */
 
   /* Surfaces */
-  --color-panel: #EDF4FF;
-  --color-ink: #0f1121;
-  --color-muted: #6b7280;
-  --color-hairline: #e6e8ef;
+  --color-panel: #EDF4FF;          /* review + open-step background */
+  --color-divider: #CED6DE;        /* review group separators */
+  --color-hairline: #e6e8ef;       /* faint borders */
+
+  /* Text (near-blacks & greys, kept distinct to match the design exactly) */
+  --color-ink: #0f1121;            /* generic dark used by primitives */
+  --color-heading: #1F1F1F;        /* titles & body copy */
+  --color-label: #0B0D10;          /* review row labels, stepper digits */
+  --color-subtle: #484848;         /* eyebrow labels, "save" link */
+  --color-muted: #6b7280;          /* muted helper text */
+  --color-faint: #A8B2BD;          /* category subheadings */
 
   /* Pricing / status */
-  --color-strike: #9aa0ae;
-  --color-strike-red: #e5484d;
-  --color-savings: #10a150;
+  --color-strike: #9aa0ae;         /* review compare-at */
+  --color-strike-red: #D8392B;     /* card compare-at */
+  --color-savings: #0AA288;        /* savings & free-shipping accent */
 
   /* Typography */
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;

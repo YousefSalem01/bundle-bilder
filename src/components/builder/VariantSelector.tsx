@@ -1,4 +1,5 @@
 import type { Variant } from "../../types/catalog";
+import { cn } from "../../lib/cn";
 
 interface VariantSelectorProps {
   variants: Variant[];
@@ -19,12 +20,12 @@ export function VariantSelector({ variants, activeVariantId, onSelect }: Variant
             role="radio"
             aria-checked={active}
             onClick={() => onSelect(variant.id)}
-            className={[
-              "inline-flex shrink-0 items-center justify-center gap-[4px] rounded-[2px] border-[0.5px] py-[1px] px-[3px] h-[26px] transition-colors cursor-pointer",
+            className={cn(
+              "inline-flex shrink-0 items-center justify-center gap-1 rounded-[2px] border-[0.5px] py-px px-[3px] h-[26px] transition-colors cursor-pointer",
               active
-                ? "border-[#0AA288] bg-[#1DF0BB]/[0.04]"
-                : "border-[#CCCCCC] bg-white hover:border-[#1F1F1F]",
-            ].join(" ")}
+                ? "border-savings bg-[#1DF0BB]/[0.04]"
+                : "border-[#CCCCCC] bg-white hover:border-heading",
+            )}
           >
             {variant.image ? (
               <img src={variant.image} alt="" className="h-[16px] w-[16px] object-contain rounded-[2px] shrink-0" />
@@ -34,7 +35,7 @@ export function VariantSelector({ variants, activeVariantId, onSelect }: Variant
                 style={{ backgroundColor: variant.swatch }}
               />
             )}
-            <span className="text-[10px] font-medium tracking-[0.6px] leading-[100%] text-[#1F1F1F] shrink-0">{variant.label}</span>
+            <span className="text-[10px] font-medium tracking-[0.6px] leading-[100%] text-heading shrink-0">{variant.label}</span>
           </button>
         );
       })}
